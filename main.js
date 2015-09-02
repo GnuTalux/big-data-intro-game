@@ -53,6 +53,7 @@ $(document).ready(function () {
       window.alert("Es befinden sich Syntaxfehler im Code.");
     }
     else {
+      console.log(containsJS(editorInput));
       if (containsJS(editorInput)) {
         var resultInput = execJS(editorStart, editorInput);
         var resultSolution = execJS(editorStart, editorSolution);
@@ -76,11 +77,11 @@ $(document).ready(function () {
     }
 
     if (isCountTry) if (++tries > 0) isDisplaySolution = true;
-    if (isDisplaySolution)  $("#btn-solve").show();
+    if (isDisplaySolution)  $("#btn-solve").fadeIn("slow");
   });
 
   $("#btn-solve").on("click", function () {
-    $("#editor-solution").show();
-
+    $(this).fadeOut("slow");
+    $("#editor-solution").fadeIn("slow");
   });
 });
