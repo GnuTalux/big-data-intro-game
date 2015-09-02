@@ -9,20 +9,16 @@ function GetEditor(editorId, options) {
   editor.session.setMode("ace/mode/javascript");
   editor.setFontSize(12);
 
-  AdjustEditorHeight(editorId, editor);
+  $("#"+editorId).height(GetEditorContentHeight(editor));
   editor.on("change", function() {
-    AdjustEditorHeight(editorId, editor);
+    $("#"+editorId).height(GetEditorContentHeight(editor));
   });
 
   return editor
 }
 
 function GetEditorContentHeight(editor) {
-  return editor.session.getDocument().getLength() * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth()
-}
-
-function AdjustEditorHeight(editorId, editor, maxLines) {
-  var maxLines = editor.getOptions().maxLines;
-  var height = (maxLines) ? Math.min(GetEditorContentHeight(editor), maxLines) : GetEditorContentHeight(editor);
-  $("#"+editorId).height(height);
+  var countLines = Math.min(editor.getOptions().maxLines, editor.session.getLength());
+  // + 1 will prevent horizontal scrollbar from overlapping last line.
+  return (countLines + 1) * editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
 }
