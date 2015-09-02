@@ -1,44 +1,16 @@
-function execJS(editor1, editor2) {
-  var code = editor1.session.getValue() + "\n" + ((editor2) ? editor2.getValue() : "") + "\n";
-
-  var funcDef = "function __CALL_THIS_FUNC__(){\nvar __RESULTS__ = []; var console = {log: function(msg) {__RESULTS__.push(msg)}};  \n" +
-      code + "\nreturn __RESULTS__;};\n";
-  eval(funcDef);
-  return __CALL_THIS_FUNC__();
-}
-
-function hasCodeLines(editor) {
-  var code = editor.session.getValue();
-  return !(/^\s*$/.test(code.replace(/\/*.+?\/|\/\/.*(?=[nr])/g, "")));
-}
-
-function hasSyntaxErrors(editor) {
-  return editor.session.getAnnotations().some(function (anno) {return anno.type == "error"})
-}
-
-function compareArray(lhs, rhs) {
-  if (lhs.length != rhs.length)
-    return false;
-
-  for (var i = 0; i < lhs.length; i++) {
-    if (lhs[i] != rhs[i]) return false;
-  }
-
-  return true;
-}
-
 $(document).ready(function () {
   /* editor for starting code */
-  var editorStartCode = GetEditor("editor-start-code", {
+  var editorStartCode = Editor.get("editor-start-code", {
       mode: "ace/mode/javascript",
       theme: "ace/theme/github",
       highlightActiveLine: false,
-      readOnly: true
+      readOnly: true,
+      maxLines: 150
     }
   );
 
   /* editor for code */
-  var editorUserInput = GetEditor("editor-user-input", {
+  var editorUserInput = Editor.get("editor-user-input", {
       mode: "ace/mode/javascript",
       theme: "ace/theme/github",
       firstLineNumber: editorStartCode.session.getLength() + 1,
@@ -46,7 +18,7 @@ $(document).ready(function () {
     }
   );
 
-  var editorSolutionCode = GetEditor("editor-solution-code", {
+  var editorSolutionCode = Editor.get("editor-solution-code", {
       mode: "ace/mode/javascript",
       theme: "ace/theme/github",
       highlightActiveLine: false,
@@ -57,7 +29,7 @@ $(document).ready(function () {
   );
 
   /* editor for output */
-  var editorUserOutput = GetEditor("editor-user-output", {
+  var editorUserOutput = Editor.get("editor-user-output", {
       mode: "ace/mode/text",
       theme: "ace/theme/tomorrow_night_blue",
       highlightActiveLine: false,
@@ -66,7 +38,7 @@ $(document).ready(function () {
     }
   );
 
-  var editorSolutionOutput = GetEditor("editor-solution-output", {
+  var editorSolutionOutput = Editor.get("editor-solution-output", {
       mode: "ace/mode/text",
       theme: "ace/theme/tomorrow_night_blue",
       highlightActiveLine: false,
@@ -74,23 +46,27 @@ $(document).ready(function () {
       maxLines: 50
     }
   );
+
+  /* dynamically load content */
+  Editor.loadContent(editorStartCode, "level/level1.html", "editor-start-code");
+  Editor.loadContent(editorSolutionCode, "level/level1.html", "editor-solution-code");
 
   var tries = 0;
 
   $("#btn-eval").on("click", function () {
     var isDisplaySolution = false;
 
-    if (!hasCodeLines(editorUserInput))
+    if (!Editor.hasCodeLines(editorUserInput))
       return;
 
     $(this).prop("disabled", true);
 
-    if (hasSyntaxErrors(editorUserInput)) {
+    if (Editor.hasSyntaxErrors(editorUserInput)) {
       editorUserOutput.session.setValue("Dein Code enthält Syntax-Fehler!");
     }
     else {
-        var resultUserInput = execJS(editorStartCode, editorUserInput);
-        var resultSolutionCode = execJS(editorStartCode, editorSolutionCode);
+        var resultUserInput = Editor.execJS(editorStartCode, editorUserInput);
+        var resultSolutionCode = Editor.execJS(editorStartCode, editorSolutionCode);
 
         var outputHeader;
         if (compareArray(resultUserInput, resultSolutionCode)) {

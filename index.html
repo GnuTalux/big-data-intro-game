@@ -9,19 +9,19 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
     <script src="ace-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="editor-utils.js" type="text/javascript" charset="utf-8"></script>
+    <script src="utils.js" type="text/javascript" charset="utf-8"></script>
     <script src="main.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 
 <h1>Einführung in Big Data -- Das Spiel</h1>
 
+<div class="helper" hidden></div>
+
 <div class="body">
 
     <div>
-        <pre id="editor-start-code" class="editor">
-var fruits = ["apple", "pear", "orange"];
-        </pre>
+        <pre id="editor-start-code" class="editor"></pre>
     </div>
 
     <div>
@@ -31,22 +31,15 @@ var fruits = ["apple", "pear", "orange"];
 
 
     <div class="one-row">
-        <pre id="editor-user-input" class="editor user split">
-/* Gebe die Elemente des Arrays "fruits" mit "console.log" aus. */
-        </pre>
-        <pre id="editor-solution-code" class="editor solution split hidden">
-fruits.forEach(function(fruit) {
-    console.log(fruit);
-});
-        </pre>
+        <pre id="editor-user-input" class="editor user split"></pre>
+        <pre id="editor-solution-code" class="editor solution split hidden"></pre>
     </div>
 
     <div class="one-row">
-        <pre id="editor-user-output" class="editor user split hidden">
-        </pre>
-        <pre id="editor-solution-output" class="editor solution split hidden">
-        </pre>
+        <pre id="editor-user-output" class="editor user split hidden"></pre>
+        <pre id="editor-solution-output" class="editor solution split hidden"></pre>
     </div>
+
 </div>
 
 </body>
