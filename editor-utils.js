@@ -5,8 +5,6 @@ function GetEditor(editorId, options) {
     editor.setOptions(options);
   }
 
-  editor.setTheme("ace/theme/github");
-  editor.session.setMode("ace/mode/javascript");
   editor.setFontSize(12);
 
   $("#"+editorId).height(GetEditorContentHeight(editor));

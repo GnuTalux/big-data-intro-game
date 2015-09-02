@@ -7,12 +7,12 @@ function execJS(editor1, editor2) {
   return __CALL_THIS_FUNC__();
 }
 
-function containsJS(editor) {
+function hasCodeLines(editor) {
   var code = editor.session.getValue();
   return !(/^\s*$/.test(code.replace(/\/*.+?\/|\/\/.*(?=[nr])/g, "")));
 }
 
-function isValidJS(editor) {
+function hasSyntaxErrors(editor) {
   return editor.session.getAnnotations().some(function (anno) {return anno.type == "error"})
 }
 
@@ -28,60 +28,96 @@ function compareArray(lhs, rhs) {
 }
 
 $(document).ready(function () {
-  var editorStart = GetEditor("editor-start", {highlightActiveLine: false, readOnly: true});
-
-  var editorInput = GetEditor("editor-input", {
-      firstLineNumber: editorStart.session.getLength() + 1,
-      maxLines: 10
+  /* editor for starting code */
+  var editorStartCode = GetEditor("editor-start-code", {
+      mode: "ace/mode/javascript",
+      theme: "ace/theme/github",
+      highlightActiveLine: false,
+      readOnly: true
     }
   );
-  var editorSolution = GetEditor("editor-solution", {
+
+  /* editor for code */
+  var editorUserInput = GetEditor("editor-user-input", {
+      mode: "ace/mode/javascript",
+      theme: "ace/theme/github",
+      firstLineNumber: editorStartCode.session.getLength() + 1,
+      maxLines: 150
+    }
+  );
+
+  var editorSolutionCode = GetEditor("editor-solution-code", {
+      mode: "ace/mode/javascript",
+      theme: "ace/theme/github",
       highlightActiveLine: false,
       readOnly: true,
-      firstLineNumber: editorStart.session.getLength() + 1,
+      firstLineNumber: editorStartCode.session.getLength() + 1,
       maxLines: 150
+    }
+  );
+
+  /* editor for output */
+  var editorUserOutput = GetEditor("editor-user-output", {
+      mode: "ace/mode/text",
+      theme: "ace/theme/tomorrow_night_blue",
+      highlightActiveLine: false,
+      readOnly: true,
+      maxLines: 50
+    }
+  );
+
+  var editorSolutionOutput = GetEditor("editor-solution-output", {
+      mode: "ace/mode/text",
+      theme: "ace/theme/tomorrow_night_blue",
+      highlightActiveLine: false,
+      readOnly: true,
+      maxLines: 50
     }
   );
 
   var tries = 0;
 
   $("#btn-eval").on("click", function () {
-    var isCountTry = true;
     var isDisplaySolution = false;
 
-    if (isValidJS(editorInput)) {
-      window.alert("Es befinden sich Syntaxfehler im Code.");
+    if (!hasCodeLines(editorUserInput))
+      return;
+
+    $(this).prop("disabled", true);
+
+    if (hasSyntaxErrors(editorUserInput)) {
+      editorUserOutput.session.setValue("Dein Code enthält Syntax-Fehler!");
     }
     else {
-      console.log(containsJS(editorInput));
-      if (containsJS(editorInput)) {
-        var resultInput = execJS(editorStart, editorInput);
-        var resultSolution = execJS(editorStart, editorSolution);
+        var resultUserInput = execJS(editorStartCode, editorUserInput);
+        var resultSolutionCode = execJS(editorStartCode, editorSolutionCode);
 
-        console.log('INPUT');
-        console.log(resultInput);
-        console.log('SOLUTION');
-        console.log(resultSolution);
-
-        if (compareArray(resultInput, resultSolution)) {
-          window.alert("Super! Du hast es gelöst!");
+        var outputHeader;
+        if (compareArray(resultUserInput, resultSolutionCode)) {
           isDisplaySolution = true;
+          outputHeader = "Du hast es geschafft!";
         }
         else {
-          window.alert("Leider falsch.")
+          outputHeader = "Deine Programmausgabe ist nicht richtig!";
         }
-      }
-      else {
-        isCountTry = false;
-      }
+
+        if (resultUserInput)
+          editorUserOutput.session.setValue([outputHeader].concat(resultUserInput).join("\n"));
+
+        if (resultSolutionCode)
+          editorSolutionOutput.session.setValue(["Lösung:"].concat(resultSolutionCode).join("\n"));
     }
 
-    if (isCountTry) if (++tries > 0) isDisplaySolution = true;
-    if (isDisplaySolution)  $("#btn-solve").fadeIn("slow");
+    $("#editor-user-output").fadeIn("slow");
+
+    if (++tries > 0) isDisplaySolution = true;
+    if (isDisplaySolution) $("#btn-solve").fadeIn("slow");
+
+    $(this).prop("disabled", false);
   });
 
   $("#btn-solve").on("click", function () {
     $(this).fadeOut("slow");
-    $("#editor-solution").fadeIn("slow");
+    $("pre.editor.solution").fadeIn("slow");
   });
 });

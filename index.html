@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Einführung in Big Data</title>
 
+    <link rel="stylesheet" type="text/css" href="main.css">
     <link rel="stylesheet" type="text/css" href="editor.css">
+
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
     <script src="ace-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="editor-utils.js" type="text/javascript" charset="utf-8"></script>
@@ -15,8 +17,9 @@
 <h1>Einführung in Big Data -- Das Spiel</h1>
 
 <div class="body">
+
     <div>
-        <pre id="editor-start" class="editor">
+        <pre id="editor-start-code" class="editor">
 var fruits = ["apple", "pear", "orange"];
         </pre>
     </div>
@@ -27,14 +30,21 @@ var fruits = ["apple", "pear", "orange"];
     </div>
 
 
-    <div>
-        <pre id="editor-input" class="editor split">
+    <div class="one-row">
+        <pre id="editor-user-input" class="editor user split">
 /* Gebe die Elemente des Arrays "fruits" mit "console.log" aus. */
         </pre>
-        <pre id="editor-solution" class="editor split hidden">
+        <pre id="editor-solution-code" class="editor solution split hidden">
 fruits.forEach(function(fruit) {
     console.log(fruit);
 });
+        </pre>
+    </div>
+
+    <div class="one-row">
+        <pre id="editor-user-output" class="editor user split hidden">
+        </pre>
+        <pre id="editor-solution-output" class="editor solution split hidden">
         </pre>
     </div>
 </div>
