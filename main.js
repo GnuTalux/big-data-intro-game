@@ -50,6 +50,7 @@ $(document).ready(function () {
   /* dynamically load content */
   Editor.loadContent(editorStartCode, "level/level1.html", "editor-start-code");
   Editor.loadContent(editorSolutionCode, "level/level1.html", "editor-solution-code");
+  Editor.loadContent(editorUserInput, "level/level1.html", "editor-user-input");
 
   var tries = 0;
 
