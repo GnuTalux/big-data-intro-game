@@ -1,3 +1,11 @@
 .one-row {
-    display: flex;
+  display: flex;
+}
+
+code {
+  font-family: monospace;
+  background: lightyellow;
+  border: 1px solid lightgrey;
+  padding: 2px;
+  border-radius: 2px;
 }

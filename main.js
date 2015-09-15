@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  /* editor for starting code */
-  var editorStartCode = Editor.get("editor-start-code", {
+  /* editor for instruction code */
+  var editorInstructionCode = Editor.get("editor-instruction-code", {
       mode: "ace/mode/javascript",
       theme: "ace/theme/github",
       highlightActiveLine: false,
@@ -9,11 +9,18 @@ $(document).ready(function () {
     }
   );
 
+  var editorStartCode = Editor.get("editor-start-code", {
+      highlightActiveLine: false,
+      readOnly: true,
+      maxLines: 0
+    }
+  );
+
   /* editor for code */
   var editorUserInput = Editor.get("editor-user-input", {
       mode: "ace/mode/javascript",
       theme: "ace/theme/github",
-      firstLineNumber: editorStartCode.session.getLength() + 1,
+      firstLineNumber: editorInstructionCode.session.getLength() + 1,
       maxLines: 150
     }
   );
@@ -23,7 +30,7 @@ $(document).ready(function () {
       theme: "ace/theme/github",
       highlightActiveLine: false,
       readOnly: true,
-      firstLineNumber: editorStartCode.session.getLength() + 1,
+      firstLineNumber: editorInstructionCode.session.getLength() + 1,
       maxLines: 150
     }
   );
@@ -48,9 +55,13 @@ $(document).ready(function () {
   );
 
   /* dynamically load content */
-  Editor.loadContent(editorStartCode, "level/level1.html", "editor-start-code");
+  Editor.loadContent(editorInstructionCode, "level/level1.html", "editor-instruction-code");
   Editor.loadContent(editorSolutionCode, "level/level1.html", "editor-solution-code");
   Editor.loadContent(editorUserInput, "level/level1.html", "editor-user-input");
+  Editor.loadContent(editorStartCode, "level/level1.html", "editor-start-code");
+
+  $("h1").load("level/level1.html .level-title");
+  $("div.instruction").load("level/level1.html .level-instruction");
 
   var tries = 0;
 
