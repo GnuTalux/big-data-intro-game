@@ -1,20 +1,18 @@
 <div class="level-title">
-  Nachgefragte Produktkategorien.
+  Beliebteste Produktekategorie.
 </div>
 
 <div class="level-instruction">
-  In dem Array <code>salesVolume</code> wird jedes verkaufte Produkt
-  als <code>Object</code> unsortiert gespeichert.
-  Der genaue Aufbau wird im unteren Editor dargestellt.
+  Wie bereits zuvor ist das Array <code>salesVolume</code> mit gegeben.
   <br>
   <br>
-  Deine Aufgabe wird sein, die Produktkategorien der verkauften Artikel
-  alphabetisch-soriert und elementweiße mithilfe von <code>console.log()</code> auszugeben.
+  Deine Aufgabe wird sein, die Produktkategorie mit den meisten Verkäufen
+  zu ermitteln. Zum Beweis sollst mit Du <code>console.log()</code> den Bezeichnung
+  der gesuchten Produktkategorie und die enstsprechende Menge getrennt
+  durch ein Leerzeichen auszugeben.
   <br>
   <br>
-  Hilfestellung: Die String-Methode <code>str1.localeCompare(str2)</code> ermöglicht es,
-  zwei Strings miteinander zu vergleichen. Dies kann sehr nützlich sein z. B. beim Sortieren von
-  Arrays von Strings.
+  <code> console.log(Produktkategorie? + " " + Verkaufsmenge?);</code>
 
 </div>
 
@@ -539,6 +537,10 @@ var salesVolume = [
 </div>
 
 <div class="editor-solution-code">
+var maxCounter = 0;
+var counter = 0;
+var favProdCat = "";
+
 salesVolume
   .map(function (value) {
     // Array(Objects) --> Array(String)
@@ -550,13 +552,19 @@ salesVolume
 
     return lhs.localeCompare(rhs);
   })
-  .filter(function (productCategory, idx, array) {
-    // Dedublizieren des Arrays
-    if (array.indexOf(productCategory) == idx) {
-      return productCategory;
+  .reduce(function(prev, curr, idx, array) {
+    if (prev != curr) {
+      if (counter > maxCounter) {
+        maxCounter = counter;
+        favProdCat = prev;
+      }
+      counter = 0;
     }
-  })
-  .forEach(function (productCategory) {
-    console.log(productCategory)
+
+    counter += 1;
+
+    return curr;
   });
+
+console.log(favProdCat + " " + maxCounter);
 </div>

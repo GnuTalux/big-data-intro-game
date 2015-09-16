@@ -54,10 +54,12 @@ Editor = {
     })
   },
 
-  loadContent: function(editor, url, section) {
+  loadContent: function(editor, url, section, callback) {
     var div = $("div.helper");
     div.load(url + " ." + section, function(respTxt, statusTxt, xhr) {
       editor.session.setValue(div.text().trim());
+
+      if (callback) callback();
     });
   }
 

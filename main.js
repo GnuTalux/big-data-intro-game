@@ -16,25 +16,6 @@ $(document).ready(function () {
     }
   );
 
-  /* editor for code */
-  var editorUserInput = Editor.get("editor-user-input", {
-      mode: "ace/mode/javascript",
-      theme: "ace/theme/github",
-      firstLineNumber: editorInstructionCode.session.getLength() + 1,
-      maxLines: 150
-    }
-  );
-
-  var editorSolutionCode = Editor.get("editor-solution-code", {
-      mode: "ace/mode/javascript",
-      theme: "ace/theme/github",
-      highlightActiveLine: false,
-      readOnly: true,
-      firstLineNumber: editorInstructionCode.session.getLength() + 1,
-      maxLines: 150
-    }
-  );
-
   /* editor for output */
   var editorUserOutput = Editor.get("editor-user-output", {
       mode: "ace/mode/text",
@@ -54,14 +35,41 @@ $(document).ready(function () {
     }
   );
 
-  /* dynamically load content */
-  Editor.loadContent(editorInstructionCode, "level/level1.html", "editor-instruction-code");
-  Editor.loadContent(editorSolutionCode, "level/level1.html", "editor-solution-code");
-  Editor.loadContent(editorUserInput, "level/level1.html", "editor-user-input");
-  Editor.loadContent(editorStartCode, "level/level1.html", "editor-start-code");
+  /* editor for code */
+  var editorUserInput;
+  var editorSolutionCode;
 
-  $("h1").load("level/level1.html .level-title");
-  $("div.instruction").load("level/level1.html .level-instruction");
+
+  var levelFile = 'level1.html';
+
+
+  /* dynamically load content */
+  Editor.loadContent(editorInstructionCode, "level/" + levelFile, "editor-instruction-code", function () {
+    /* editor for code */
+    editorUserInput = Editor.get("editor-user-input", {
+        mode: "ace/mode/javascript",
+        theme: "ace/theme/github",
+        firstLineNumber: editorInstructionCode.session.getLength() + 1,
+        maxLines: 150
+      }
+    );
+
+    editorSolutionCode = Editor.get("editor-solution-code", {
+        mode: "ace/mode/javascript",
+        theme: "ace/theme/github",
+        highlightActiveLine: false,
+        readOnly: true,
+        firstLineNumber: editorInstructionCode.session.getLength() + 1,
+        maxLines: 150
+      }
+    );
+
+    Editor.loadContent(editorSolutionCode, "level/" + levelFile, "editor-solution-code");
+  });
+
+  Editor.loadContent(editorStartCode, "level/" + levelFile, "editor-start-code");
+  $("h1").load("level/" + levelFile + " .level-title");
+  $("div.instruction").load("level/" + levelFile + " .level-instruction");
 
   var tries = 0;
 

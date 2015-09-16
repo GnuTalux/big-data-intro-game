@@ -3,12 +3,13 @@
 }
 
 code {
-  font-family: monospace;
-  border: 2px dotted lightgrey;
-  background: lightyellow;
+  font-family: Andale Mono;
+  border: 1px solid lightgrey;
+  background: lightgrey;
+  color: steelblue;
   margin: 1px;
   padding: 1px;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .instruction {
