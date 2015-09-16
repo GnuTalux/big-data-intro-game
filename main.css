@@ -18,3 +18,13 @@ code {
   font-family: monospace;
   line-height: 1.75;
 }
+
+button.level-nav {
+  border: 2px none lightgray;
+  border-radius: 2px;
+}
+button.level-nav.selected {
+  border: 2px solid darkslateblue;
+  color: darkslateblue;
+  font-weight: bold;
+}

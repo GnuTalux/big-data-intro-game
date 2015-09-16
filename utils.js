@@ -57,12 +57,27 @@ Editor = {
   loadContent: function(editor, url, section, callback) {
     var div = $("div.helper");
     div.load(url + " ." + section, function(respTxt, statusTxt, xhr) {
-      editor.session.setValue(div.text().trim());
-
-      if (callback) callback();
+      if (statusTxt == 'success') {
+        editor.session.setValue(div.text().trim());
+        if (callback) callback();
+      }
     });
-  }
+  },
 
+  loadLevel: function(levelNo, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode) {
+    var levelFile = "level/level" + levelNo + ".html";
+    Editor.loadContent(editorInstructionCode, levelFile, "editor-instruction-code", function () {
+      /* editor for code */
+      editorUserInput.session.setOption("firstLineNumber", editorInstructionCode.session.getLength() + 1);
+      editorSolutionCode.session.setOption("firstLineNumber", editorInstructionCode.session.getLength() + 1);
+      Editor.loadContent(editorSolutionCode, levelFile, "editor-solution-code");
+    });
+    editorUserInput.session.doc.setValue("");
+
+    Editor.loadContent(editorStartCode, levelFile, "editor-start-code");
+    $("h1").load(levelFile + " .level-title");
+    $("div.instruction").load(levelFile + " .level-instruction");
+  }
 };
 
 compareArray = function (lhs, rhs) {

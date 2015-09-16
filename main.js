@@ -1,3 +1,5 @@
+var gameLevel = "1";
+
 $(document).ready(function () {
   /* editor for instruction code */
   var editorInstructionCode = Editor.get("editor-instruction-code", {
@@ -36,40 +38,24 @@ $(document).ready(function () {
   );
 
   /* editor for code */
-  var editorUserInput;
-  var editorSolutionCode;
-
-
-  var levelFile = 'level1.html';
+  var editorUserInput = Editor.get("editor-user-input", {
+      mode: "ace/mode/javascript",
+      theme: "ace/theme/github",
+      maxLines: 150
+    }
+  );
+  var editorSolutionCode = Editor.get("editor-solution-code", {
+      mode: "ace/mode/javascript",
+      theme: "ace/theme/github",
+      highlightActiveLine: false,
+      readOnly: true,
+      maxLines: 150
+    }
+  );
 
 
   /* dynamically load content */
-  Editor.loadContent(editorInstructionCode, "level/" + levelFile, "editor-instruction-code", function () {
-    /* editor for code */
-    editorUserInput = Editor.get("editor-user-input", {
-        mode: "ace/mode/javascript",
-        theme: "ace/theme/github",
-        firstLineNumber: editorInstructionCode.session.getLength() + 1,
-        maxLines: 150
-      }
-    );
-
-    editorSolutionCode = Editor.get("editor-solution-code", {
-        mode: "ace/mode/javascript",
-        theme: "ace/theme/github",
-        highlightActiveLine: false,
-        readOnly: true,
-        firstLineNumber: editorInstructionCode.session.getLength() + 1,
-        maxLines: 150
-      }
-    );
-
-    Editor.loadContent(editorSolutionCode, "level/" + levelFile, "editor-solution-code");
-  });
-
-  Editor.loadContent(editorStartCode, "level/" + levelFile, "editor-start-code");
-  $("h1").load("level/" + levelFile + " .level-title");
-  $("div.instruction").load("level/" + levelFile + " .level-instruction");
+  Editor.loadLevel(1, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode);
 
   var tries = 0;
 
@@ -107,13 +93,31 @@ $(document).ready(function () {
     $("#editor-user-output").fadeIn("slow");
 
     if (++tries > 0) isDisplaySolution = true;
-    if (isDisplaySolution) $("#btn-solve").fadeIn("slow");
+    if (isDisplaySolution) $("#btn-solve-show").fadeIn("slow");
 
     $(this).prop("disabled", false);
   });
 
-  $("#btn-solve").on("click", function () {
-    $(this).fadeOut("slow");
+  $("#btn-solve-show").on("click", function () {
+    $(this).hide();
+    $("#btn-solve-hide").show();
     $("pre.editor.solution").fadeIn("slow");
+  });
+
+  $("#btn-solve-hide").on("click", function () {
+    $(this).hide();
+    $("#btn-solve-show").show();
+    $("pre.editor.solution").fadeOut("slow");
+  });
+
+  $("button.level-nav").on("click", function () {
+    if ($(this).hasClass('selected')) {
+    }
+    else {
+      $("button.level-nav.selected").first().removeClass("selected");
+      $(this).addClass("selected");
+      Editor.loadLevel(this.id, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode);
+      $("pre.editor.solution, #editor-user-output, #btn-solve-show, #btn-solve-hide").hide();
+    }
   });
 });
