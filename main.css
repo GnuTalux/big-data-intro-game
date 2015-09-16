@@ -4,8 +4,16 @@
 
 code {
   font-family: monospace;
+  border: 2px dotted lightgrey;
   background: lightyellow;
-  border: 1px solid lightgrey;
-  padding: 2px;
-  border-radius: 2px;
+  margin: 1px;
+  padding: 1px;
+  border-radius: 5px;
+}
+
+.instruction {
+  width: 65%;
+  margin-left: 1em;
+  font-family: monospace;
+  line-height: 1.75;
 }

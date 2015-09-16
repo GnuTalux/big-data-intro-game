@@ -1,21 +1,156 @@
 <div class="level-title">
-  Was habe ich alles für Früchte
+  Welche Produktkategorien wurden verkauft?
 </div>
 
 <div class="level-instruction">
-  Gebe das Array <code>fruits</code> elementweiße mit <code>console.log</code> aus.
+  In dem Array <code>salesVolume</code> wird jedes verkaufte Produkt
+  als <code>Object</code> unsortiert gespeichert.
+  Der genaue Aufbau wird im unteren Editor dargestellt.
+  <br>
+  <br>
+  Deine Aufgabe wird sein, die Produktkategorien der verkauften Artikel
+  alphabetisch-soriert und elementweiße mithilfe von <code>console.log</code> auszugeben.
+
 </div>
 
 <div class="editor-instruction-code">
-    var fruits = [];
+  var salesVolume = [
+    { // Verkauftes Produkt #1
+      ProductName: String,
+      ProductCategory: String
+    },
+    { // Verkauftes Produkt #2
+      ProductName: String,
+      ProductCategory: String
+    }
+    // ...
+  ];
 </div>
 
 <div class="editor-start-code">
-  var fruits = ["apple", "pear", "grape", "banana"]
+  var salesVolume = [
+    {ProductCategory:'Konserven'        , ProductName:'Bockwurst'                 , Price:1.39},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Taschentücher'             , Price:3.20},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappbecher'                , Price:3.74},
+    {ProductCategory:'Getränke'         , ProductName:'stilles super Wasser'      , Price:2.48},
+    {ProductCategory:'Gemüse'           , ProductName:'Kartoffeln'                , Price:2.30},
+    {ProductCategory:'Süßigkeiten'      , ProductName:'Gummibärchen'              , Price:0.98},
+    {ProductCategory:'Obst'             , ProductName:'Wassermelone'              , Price:2.14},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Quark'                     , Price:1.63},
+    {ProductCategory:'Getränke'         , ProductName:'Limonade'                  , Price:3.45},
+    {ProductCategory:'Obst'             , ProductName:'Ananas'                    , Price:0.80},
+    {ProductCategory:'Obst'             , ProductName:'Ananas'                    , Price:1.85},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Quark'                     , Price:3.38},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappteller'                , Price:3.40},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Joghurt'                   , Price:0.88},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Quark'                     , Price:2.10},
+    {ProductCategory:'Brot'             , ProductName:'Toast'                     , Price:0.99},
+    {ProductCategory:'Gemüse'           , ProductName:'Tomaten'                   , Price:1.80},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappbecher'                , Price:0.50},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Fischstäbchen'             , Price:2.70},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Milch'                     , Price:0.88},
+    {ProductCategory:'Konserven'        , ProductName:'Thunfisch'                 , Price:0.85},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Tielkühlgemüse'            , Price:5.74},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Pizza'                     , Price:3.20},
+    {ProductCategory:'Gemüse'           , ProductName:'Kartoffeln'                , Price:1.35},
+    {ProductCategory:'Backwaren'        , ProductName:'Lebensmittelfarbe'         , Price:2.30},
+    {ProductCategory:'Fleischtheke'     , ProductName:'Rumpsteak'                 , Price:8.15},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Waschmittel'               , Price:5.65},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Toilettenpapier'           , Price:2.40},
+    {ProductCategory:'Snacks'           , ProductName:'Chips'                     , Price:2.00},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges Leitungswasser' , Price:2.40},
+    {ProductCategory:'Konserven'        , ProductName:'Bockwurst'                 , Price:0.55},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Taschentücher'             , Price:3.65},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:4.48},
+    {ProductCategory:'Brot'             , ProductName:'Roggenbrot'                , Price:1.45},
+    {ProductCategory:'Getränke'         , ProductName:'stilles super Wasser'      , Price:3.99},
+    {ProductCategory:'Gemüse'           , ProductName:'Kartoffeln'                , Price:2.60},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappbecher'                , Price:2.99},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Quark'                     , Price:3.30},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Waschmittel'               , Price:2.65},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Quark'                     , Price:1.85},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Tielkühlgemüse'            , Price:2.24},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Pizza'                     , Price:4.70},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:3.65},
+    {ProductCategory:'Getränke'         , ProductName:'Energydrink'               , Price:1.49},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Küchenrolle'               , Price:3.24},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:1.65},
+    {ProductCategory:'Fischtheke'       , ProductName:'Seelachs'                  , Price:13.2},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Spülmittel'                , Price:2.90},
+    {ProductCategory:'Getränke'         , ProductName:'Energydrink'               , Price:3.24},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:4.73},
+    {ProductCategory:'Brot'             , ProductName:'Toast'                     , Price:0.73},
+    {ProductCategory:'Brot'             , ProductName:'Toast'                     , Price:1.40},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Taschentücher'             , Price:2.20},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Kernseife'                 , Price:4.99},
+    {ProductCategory:'Backwaren'        , ProductName:'Glasur'                    , Price:0.33},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Fischstäbchen'             , Price:2.45},
+    {ProductCategory:'Brot'             , ProductName:'dunkles Vollkornbrot'      , Price:0.73},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Milch'                     , Price:1.35},
+    {ProductCategory:'Konserven'        , ProductName:'Bockwurst'                 , Price:2.39},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:4.65},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Küchenrolle'               , Price:3.40},
+    {ProductCategory:'Konserven'        , ProductName:'Bockwurst'                 , Price:1.05},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Waschmittel'               , Price:2.73},
+    {ProductCategory:'Brot'             , ProductName:'Roggenbrot'                , Price:0.90},
+    {ProductCategory:'Obst'             , ProductName:'Wassermelone'              , Price:2.64},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappbecher'                , Price:1.95},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Käse'                      , Price:2.89},
+    {ProductCategory:'Konserven'        , ProductName:'Karotten'                  , Price:1.89},
+    {ProductCategory:'Backwaren'        , ProductName:'Vanille-Aroma'             , Price:2.30},
+    {ProductCategory:'Snacks'           , ProductName:'Chips'                     , Price:0.75},
+    {ProductCategory:'Backwaren'        , ProductName:'Vanille-Aroma'             , Price:2.08},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges edel Wasser'    , Price:2.24},
+    {ProductCategory:'Süßigkeiten'      , ProductName:'Dickmanns'                 , Price:3.65},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Toilettenpapier'           , Price:3.45},
+    {ProductCategory:'Getränke'         , ProductName:'stilles super Wasser'      , Price:2.15},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Fischstäbchen'             , Price:2.73},
+    {ProductCategory:'Süßigkeiten'      , ProductName:'Jelly Beans'               , Price:1.90},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Pappbecher'                , Price:2.95},
+    {ProductCategory:'Brot'             , ProductName:'Roggenbrot'                , Price:1.90},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Buttermilch'               , Price:0.85},
+    {ProductCategory:'Getränke'         , ProductName:'Energydrink'               , Price:3.90},
+    {ProductCategory:'Getränke'         , ProductName:'stilles super Wasser'      , Price:4.15},
+    {ProductCategory:'Einwegprodukte'   , ProductName:'Küchenrolle'               , Price:2.23},
+    {ProductCategory:'Süßigkeiten'      , ProductName:'Schockokeks'               , Price:2.65},
+    {ProductCategory:'Backwaren'        , ProductName:'Gelee'                     , Price:2.08},
+    {ProductCategory:'Backwaren'        , ProductName:'Glasur'                    , Price:2.30},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Milch'                     , Price:2.55},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges Leitungswasser' , Price:2.95},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Milch'                     , Price:0.38},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Tielkühlgemüse'            , Price:2.40},
+    {ProductCategory:'Fleischtheke'     , ProductName:'Hackfleisch'               , Price:9.65},
+    {ProductCategory:'Brot'             , ProductName:'Weißbrot'                  , Price:1.70},
+    {ProductCategory:'Getränke'         , ProductName:'stilles Quellwasser'       , Price:1.45},
+    {ProductCategory:'Obst'             , ProductName:'Mango'                     , Price:3.63},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Pommes'                    , Price:5.24},
+    {ProductCategory:'Molkeprodukte'    , ProductName:'Milch'                     , Price:0.35},
+    {ProductCategory:'Getränke'         , ProductName:'spritziges Leitungswasser' , Price:2.98},
+    {ProductCategory:'Tiefkühlprodukte' , ProductName:'Tielkühlgemüse'            , Price:5.70},
+    {ProductCategory:'Fischtheke'       , ProductName:'Lachsfilet'                , Price:8.95},
+    {ProductCategory:'Haushaltswaren'   , ProductName:'Waschmittel'               , Price:1.48}
+  ];
 </div>
 
 <div class="editor-solution-code">
-    fruits.forEach(function(fruit) {
-        console.log(fruit);
+  salesVolume
+    .map(function (value) {
+      // Array(Objects) --> Array(String)
+
+      return value.ProductCategory;
+    })
+    .sort(function (lhs, rhs) {
+      // Sortieren der ProductCategory
+
+      return lhs.localeCompare(rhs);
+    })
+    .filter(function (productCategory, idx, array) {
+      // Dedublizieren des Arrays
+      if (array.indexOf(productCategory) == idx) {
+        return productCategory;
+      }
+    })
+    .forEach(function (productCategory) {
+      console.log(productCategory)
     });
 </div>
