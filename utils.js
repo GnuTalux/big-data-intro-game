@@ -28,18 +28,13 @@ Editor = {
   execJS: function (editor1, editor2) {
     var code = editor1.session.getValue() + "\n" + ((editor2) ? editor2.getValue() : "") + "\n";
 
-    console.log(code);
-
-    eval(code);
-
     var funcDef = "function __CALL_THIS_FUNC__(){\nvar __RESULTS__ = []; var console = {log: function(msg) {__RESULTS__.push(msg)}};  \n" +
       code + "\nreturn __RESULTS__;};\n";
 
-
     console.log(funcDef);
 
-
     eval(funcDef);
+
     return __CALL_THIS_FUNC__();
   },
 

@@ -71,9 +71,20 @@ $(document).ready(function () {
       editorUserOutput.session.setValue("Dein Code enthält Syntax-Fehler!");
     }
     else {
-        var resultUserInput = Editor.execJS(editorStartCode, editorUserInput);
-        var resultSolutionCode = Editor.execJS(editorStartCode, editorSolutionCode);
+      var errorObj;
 
+      try {
+        var resultUserInput = Editor.execJS(editorStartCode, editorUserInput);
+      }
+      catch (e) {
+        hasExecError = true;
+        errorObj = e;
+        resultUserInput = e.message
+      }
+
+      var resultSolutionCode = Editor.execJS(editorStartCode, editorSolutionCode);
+
+      if (errorObj === undefined) {
         var outputHeader;
         if (compareArray(resultUserInput, resultSolutionCode)) {
           isDisplaySolution = true;
@@ -82,12 +93,16 @@ $(document).ready(function () {
         else {
           outputHeader = "Deine Programmausgabe ist nicht richtig!";
         }
+      }
+      else {
+        outputHeader = "Fehler im Code: ";
+      }
 
-        if (resultUserInput)
-          editorUserOutput.session.setValue([outputHeader].concat(resultUserInput).join("\n"));
+      if (resultUserInput)
+        editorUserOutput.session.setValue([outputHeader].concat(resultUserInput).join("\n"));
 
-        if (resultSolutionCode)
-          editorSolutionOutput.session.setValue(["Lösung:"].concat(resultSolutionCode).join("\n"));
+      if (resultSolutionCode)
+        editorSolutionOutput.session.setValue(["Lösung:"].concat(resultSolutionCode).join("\n"));
     }
 
     $("#editor-user-output").fadeIn("slow");

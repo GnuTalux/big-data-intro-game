@@ -28,3 +28,10 @@ button.level-nav.selected {
   color: darkslateblue;
   font-weight: bold;
 }
+
+.start-button {
+  padding: 10px;
+  margin: auto;
+  display:block;
+  font-size: large;
+}
