@@ -13,9 +13,10 @@ code {
 }
 
 .instruction {
-  width: 65%;
+  width: 60%;
   margin-left: 1em;
   font-family: monospace;
+  font-size: 14px;
   line-height: 1.75;
 }
 
@@ -32,6 +33,6 @@ button.level-nav.selected {
 .start-button {
   padding: 10px;
   margin: auto;
-  display:block;
+  display: block;
   font-size: large;
 }
