@@ -57,7 +57,7 @@ $(document).ready(function () {
   /* dynamically load content */
   Editor.loadLevel(1, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode);
 
-  var tries = 0;
+  var tries = 1;
 
   $("#btn-eval").on("click", function () {
     var isDisplaySolution = false;
@@ -114,9 +114,10 @@ $(document).ready(function () {
     if ($(this).hasClass('selected')) {
     }
     else {
+      console.log('switch level')
       $("button.level-nav.selected").first().removeClass("selected");
       $(this).addClass("selected");
-      Editor.loadLevel(this.id, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode);
+      Editor.loadLevel($(this).data('level'), editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode);
       $("pre.editor.solution, #editor-user-output, #btn-solve-show, #btn-solve-hide").hide();
     }
   });

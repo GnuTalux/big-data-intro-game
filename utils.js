@@ -66,11 +66,13 @@ Editor = {
 
   loadLevel: function(levelNo, editorInstructionCode, editorUserInput, editorSolutionCode, editorStartCode) {
     var levelFile = "level/level" + levelNo + ".html";
+    console.log('LOAD ' + levelFile);
     Editor.loadContent(editorInstructionCode, levelFile, "editor-instruction-code", function () {
       /* editor for code */
       editorUserInput.session.setOption("firstLineNumber", editorInstructionCode.session.getLength() + 1);
       editorSolutionCode.session.setOption("firstLineNumber", editorInstructionCode.session.getLength() + 1);
       Editor.loadContent(editorSolutionCode, levelFile, "editor-solution-code");
+      console.log('loadContent')
     });
     editorUserInput.session.doc.setValue("");
 
